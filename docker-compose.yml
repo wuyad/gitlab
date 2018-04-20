@@ -9,9 +9,24 @@ services:
       - gitlab-redis:redisio
       - gitlab-postgresql:postgresql
     environment:
+      - DEBUG=false
+      - DB_ADAPTER=postgresql
+      - DB_HOST=gitlab-postgresql
+      - DB_PORT=5432
+      - DB_USER=gitlab
+      - DB_PASS=password
+      - DB_NAME=gitlabhq_production
+
+      - REDIS_HOST=gitlab-redis
+      - REDIS_PORT=6379
+
+      - TZ=Asia/Shanghai
+      - GITLAB_TIMEZONE=Asia/Shanghai
+      - GITLAB_HOST=gitlab.info.baiwangjinfu.com
       - GITLAB_PORT=443
       - GITLAB_SSH_PORT=10022
       - GITLAB_HTTPS=true
+      - SSL_SELF_SIGNED=false
       - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string
       - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alpha-numeric-string
       - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alpha-numeric-string
@@ -21,7 +36,7 @@ services:
       - LDAP_BIND_DN=cn=admin,dc=xjbw,dc=com
       - LDAP_PASS=xjbwinfo
       - LDAP_BASE=ou=people,dc=xjbw,dc=com
-      - LDAP_USER_FILTER=(&(objectClass=inetOrgPerson)(cn=%n))
+      - LDAP_USER_FILTER=(&(objectClass=inetOrgPerson)(cn=*))
       - VIRTUAL_HOST=gitlab.info.baiwangjinfu.com
       - LETSENCRYPT_HOST=gitlab.info.baiwangjinfu.com
       - LETSENCRYPT_EMAIL=alex_wuya@163.com
